@@ -1,7 +1,7 @@
 Summary:	A music player with *.cue support
 Name:		deadbeef
-Version:	0.4.4
-Release:	1%{?dist}
+Version:	0.5.0
+Release:	1%{?dist}.R
 
 Group:		Applications/Multimedia
 License:	GPLv2
@@ -27,6 +27,10 @@ BuildRequires:	libtool
 BuildRequires:	libvorbis-devel
 BuildRequires:	pulseaudio-libs-devel
 BuildRequires:	wavpack-devel
+
+%if 0%{?fedora} >= 14
+BuildRequires:	libstdc++-static
+%endif
 
 Requires:	%{name}-plugins = %{version}
 
@@ -95,6 +99,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc README INSTALL ChangeLog COPYING AUTHORS
 %{_bindir}/%{name}
 %dir %{_libdir}/%{name}
+%{_libdir}/%{name}/convpresets
 %{_datadir}/applications/deadbeef.desktop
 %{_datadir}/%{name}/pixmaps/*
 %{_datadir}/pixmaps/%{name}.png
@@ -113,6 +118,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog 
+* Mon May 16 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 0.5.0-1.R
+- update to 0.5.0
+- added BR: libstdc++-static for fedora >= 14
+
 * Tue Nov 16 2010 Arkady L. Shane <ashejn@yandex-team.ru> - 0.4.4-1
 - update to 0.4.4
 

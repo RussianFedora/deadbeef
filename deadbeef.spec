@@ -1,6 +1,6 @@
 Summary:	A music player with *.cue support
 Name:		deadbeef
-Version:	0.5.0
+Version:	0.5.1
 Release:	1%{?dist}.R
 
 Group:		Applications/Multimedia
@@ -118,6 +118,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog 
+* Mon Jun  6 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 0.5.1-1.R
+- update to 0.5.1
+
 * Mon May 16 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 0.5.0-1.R
 - update to 0.5.0
 - added BR: libstdc++-static for fedora >= 14

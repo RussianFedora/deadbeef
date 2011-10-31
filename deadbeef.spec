@@ -1,12 +1,14 @@
 Summary:    A music player with *.cue support
 Name:       deadbeef
 Version:    0.5.1
-Release:    1%{?dist}.R
+Release:    2%{?dist}.R
 
 Group:      Applications/Multimedia
 License:    GPLv2
 URL:        http://deadbeef.sourceforge.net
-Source0:    http://downloads.sourceforge.net/project/deadbeef/deadbeef-%{version}.tar.bz2
+Source0:    http://downloads.sourceforge.net/project/%{name}/%{name}-%{version}.tar.bz2
+Patch1:     deadbeef-compile.patch
+
 BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  alsa-lib-devel
@@ -65,7 +67,7 @@ This package contains plugins for %{name}
 
 %prep
 %setup -q
-
+%patch1 -p1 -b .codec_media
 
 %build
 %configure
@@ -82,8 +84,8 @@ rm -rf $RPM_BUILD_ROOT%{_defaultdocdir}
 
 install -dD $RPM_BUILD_ROOT%{_datadir}/pixmaps
 
-cp $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/24x24/apps/deadbeef.png \
-	$RPM_BUILD_ROOT%{_datadir}/pixmaps
+cp $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/24x24/apps/%{name}.png \
+    $RPM_BUILD_ROOT%{_datadir}/pixmaps
 
 %find_lang %{name}
 
@@ -98,7 +100,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_bindir}/%{name}
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/convpresets
-%{_datadir}/applications/deadbeef.desktop
+%{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/pixmaps/*
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/icons/hicolor/*/apps/*
@@ -107,7 +109,7 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(-,root,root,-)
 %doc README INSTALL ChangeLog COPYING AUTHORS
-%{_includedir}/deadbeef/*
+%{_includedir}/%{name}/*
 
 %files plugins
 %doc README INSTALL ChangeLog COPYING AUTHORS
@@ -115,7 +117,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/%{name}/*.so.*
 
 
-%changelog 
+%changelog
+* Mon Oct 31 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.1-2.R
+- Added patch to compile in F16
+
 * Mon Jun  6 2011 Arkady L. Shane <ashejn@yandex-team.ru> - 0.5.1-1.R
 - update to 0.5.1
 

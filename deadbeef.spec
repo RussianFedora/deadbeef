@@ -1,7 +1,8 @@
-Summary:    A music player with *.cue support
 Name:       deadbeef
 Version:    0.5.1
-Release:    2%{?dist}.R
+Release:    3%{?dist}.R
+Summary:    A music player with *.cue support
+Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
 
 Group:      Applications/Multimedia
 License:    GPLv2
@@ -44,6 +45,15 @@ It is mainly written by Alexey Yakovenko, with contributions from a lot of
 different people (see about box in the player for more details).
 
 It is distributed under the terms of General Public License version 2.
+
+%description -l ru
+DeaDBeeF (как в 0xDEADBEEF) это аудиопроигрыватель для систем GNU/Linux с X11
+(теперь может работать и в чистой консоли).
+
+В основном написан Алексеем Яковенко, с добавлениями от многих других людей
+(подробнее смотри в разделе О программе).
+
+Распространяется под условиями General Public License version 2.
 
 
 %package devel
@@ -96,7 +106,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
-%doc README INSTALL ChangeLog COPYING AUTHORS
+%doc README ChangeLog COPYING AUTHORS
 %{_bindir}/%{name}
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/convpresets
@@ -108,16 +118,19 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(-,root,root,-)
-%doc README INSTALL ChangeLog COPYING AUTHORS
+%doc README ChangeLog COPYING AUTHORS
 %{_includedir}/%{name}/*
 
 %files plugins
-%doc README INSTALL ChangeLog COPYING AUTHORS
+%doc README ChangeLog COPYING AUTHORS
 %{_libdir}/%{name}/*.so
 %{_libdir}/%{name}/*.so.*
 
 
 %changelog
+* Tue Nov 22 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.1-3.R
+- Added description in russian language
+
 * Mon Oct 31 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.1-2.R
 - Added patch to compile in F16
 

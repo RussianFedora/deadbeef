@@ -1,6 +1,6 @@
 Name:       deadbeef
 Version:    0.5.1
-Release:    3%{?dist}.R
+Release:    3%{?dist}
 Summary:    A music player with *.cue support
 Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
 

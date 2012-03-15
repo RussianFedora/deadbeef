@@ -1,6 +1,6 @@
 Name:       deadbeef
 Version:    0.5.1
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    A music player with *.cue support
 Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
 
@@ -30,8 +30,11 @@ BuildRequires:  libtool
 BuildRequires:  libvorbis-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  wavpack-devel
+%if 0%{?fedora} >= 15 && 0%{?rhel} >= 7
 BuildRequires:  libstdc++-static
-
+%else
+BuildRequires:  libstdc++-devel
+%endif
 
 Requires:   %{name}-plugins = %{version}
 
@@ -128,6 +131,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Feb  5 2012 Arkady L. Shane <ashejn@russianfedora.ru> - 0.5.1-4.R
+- added conditions to build for EL6
+
 * Tue Nov 22 2011 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.1-3.R
 - Added description in russian language
 

@@ -83,7 +83,7 @@ This package contains plugins for %{name}
 #%patch1 -p1 -b .codec_media
 
 %build
-%configure
+%configure --disable-sid
 make %{?_smp_mflags}
 
 

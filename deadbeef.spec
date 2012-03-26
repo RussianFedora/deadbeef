@@ -1,6 +1,6 @@
 Name:       deadbeef
-Version:    0.5.1
-Release:    4%{?dist}
+Version:    0.5.2
+Release:    1%{?dist}
 Summary:    A music player with *.cue support
 Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
 
@@ -8,7 +8,7 @@ Group:      Applications/Multimedia
 License:    GPLv2
 URL:        http://deadbeef.sourceforge.net
 Source0:    http://downloads.sourceforge.net/project/%{name}/%{name}-%{version}.tar.bz2
-Patch1:     deadbeef-compile.patch
+#Patch1:     deadbeef-compile.patch
 
 BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -30,7 +30,7 @@ BuildRequires:  libtool
 BuildRequires:  libvorbis-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  wavpack-devel
-%if 0%{?fedora} >= 15 && 0%{?rhel} >= 7
+%if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
 BuildRequires:  libstdc++-static
 %else
 BuildRequires:  libstdc++-devel
@@ -80,7 +80,7 @@ This package contains plugins for %{name}
 
 %prep
 %setup -q
-%patch1 -p1 -b .codec_media
+#%patch1 -p1 -b .codec_media
 
 %build
 %configure
@@ -131,6 +131,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Mar 26 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.2-1.R
+- update to 0.5.2
+
 * Sun Feb  5 2012 Arkady L. Shane <ashejn@russianfedora.ru> - 0.5.1-4.R
 - added conditions to build for EL6
 

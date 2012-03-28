@@ -1,6 +1,6 @@
 Name:       deadbeef
 Version:    0.5.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A music player with *.cue support
 Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
 
@@ -30,6 +30,7 @@ BuildRequires:  libtool
 BuildRequires:  libvorbis-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  wavpack-devel
+BuildRequires:  yasm-devel
 %if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
 BuildRequires:  libstdc++-static
 %else
@@ -131,6 +132,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Mar 28 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.2-2.R
+- Added APE support
+
 * Mon Mar 26 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.2-1.R
 - update to 0.5.2
 

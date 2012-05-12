@@ -1,6 +1,6 @@
 Name:       deadbeef
-Version:    0.5.2
-Release:    2%{?dist}
+Version:    0.5.4
+Release:    1%{?dist}
 Summary:    A music player with *.cue support
 Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
 
@@ -8,7 +8,6 @@ Group:      Applications/Multimedia
 License:    GPLv2
 URL:        http://deadbeef.sourceforge.net
 Source0:    http://downloads.sourceforge.net/project/%{name}/%{name}-%{version}.tar.bz2
-#Patch1:     deadbeef-compile.patch
 
 BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -81,7 +80,6 @@ This package contains plugins for %{name}
 
 %prep
 %setup -q
-#%patch1 -p1 -b .codec_media
 
 %build
 %configure --disable-sid
@@ -132,6 +130,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat May 12 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.4-1.R
+- update to 0.5.4
+
 * Wed Mar 28 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.2-2.R
 - Added APE support
 

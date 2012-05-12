@@ -82,7 +82,7 @@ This package contains plugins for %{name}
 %setup -q
 
 %build
-%configure --disable-sid
+%configure
 make %{?_smp_mflags}
 
 
@@ -132,6 +132,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Sat May 12 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.4-1.R
 - update to 0.5.4
+- enable SID plugin
 
 * Wed Mar 28 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.2-2.R
 - Added APE support

@@ -1,5 +1,5 @@
 Name:       deadbeef
-Version:    0.5.4
+Version:    0.5.5
 Release:    1%{?dist}
 Summary:    A music player with *.cue support
 Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
@@ -130,6 +130,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jun 07 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.5-1.R
+- update to 0.5.5
+
 * Sat May 12 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.4-1.R
 - update to 0.5.4
 - enable SID plugin

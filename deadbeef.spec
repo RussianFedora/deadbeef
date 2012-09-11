@@ -29,7 +29,6 @@ BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  wavpack-devel
 BuildRequires:  yasm-devel
 BuildRequires:  bison
-BuildRequires:  gstreamer-devel
 %if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
 BuildRequires:  libstdc++-static
 %else

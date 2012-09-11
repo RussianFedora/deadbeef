@@ -1,6 +1,6 @@
 Name:       deadbeef
 Version:    0.5.5
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A music player with *.cue support
 Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
 
@@ -8,8 +8,6 @@ Group:      Applications/Multimedia
 License:    GPLv2
 URL:        http://deadbeef.sourceforge.net
 Source0:    http://downloads.sourceforge.net/project/%{name}/%{name}-%{version}.tar.bz2
-
-BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  alsa-lib-devel
 BuildRequires:  dbus-devel
@@ -30,13 +28,15 @@ BuildRequires:  libvorbis-devel
 BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  wavpack-devel
 BuildRequires:  yasm-devel
+BuildRequires:  bison-devel
+BuildRequires:  gstreamer-devel
 %if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
 BuildRequires:  libstdc++-static
 %else
 BuildRequires:  libstdc++-devel
 %endif
 
-Requires:   %{name}-plugins = %{version}
+Requires:   %{name}-plugins = %{version}-%{release}
 
 
 %description
@@ -62,7 +62,7 @@ DeaDBeeF (как в 0xDEADBEEF) это аудиопроигрыватель дл
 %package devel
 Summary:    Static library and header files for the %{name}
 Group:      Development/Libraries
-Requires:   %{name} = %{version}
+Requires:   %{name}%{?_isa} = %{version}-%{release}
 
 
 %description devel
@@ -72,7 +72,7 @@ developing %{name}.
 %package plugins
 Summary:    Plugins for %{name}
 Group:      Applications/Multimedia
-Requires:   %{name} = %{version}
+Requires:   %{name}%{?_isa} = %{version}-%{release}
 
 %description plugins
 This package contains plugins for %{name}
@@ -87,8 +87,6 @@ make %{?_smp_mflags}
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
 make install DESTDIR=$RPM_BUILD_ROOT
 find $RPM_BUILD_ROOT -name "*.la" -exec rm {} \;
 find $RPM_BUILD_ROOT -name "*.a" -exec rm {} \;
@@ -102,12 +100,7 @@ cp $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/24x24/apps/%{name}.png \
 %find_lang %{name}
 
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
-
 %files -f %{name}.lang
-%defattr(-,root,root,-)
 %doc README ChangeLog COPYING AUTHORS
 %{_bindir}/%{name}
 %dir %{_libdir}/%{name}
@@ -119,17 +112,17 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files devel
-%defattr(-,root,root,-)
-%doc README ChangeLog COPYING AUTHORS
 %{_includedir}/%{name}/*
 
 %files plugins
-%doc README ChangeLog COPYING AUTHORS
 %{_libdir}/%{name}/*.so
 %{_libdir}/%{name}/*.so.*
 
 
 %changelog
+* Tue Sep 11 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.5-2.R
+- add some BR
+
 * Thu Jun 07 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.5-1.R
 - update to 0.5.5
 

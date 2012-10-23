@@ -1,6 +1,6 @@
 Name:       deadbeef
-Version:    0.5.5
-Release:    2%{?dist}
+Version:    0.5.6
+Release:    1%{?dist}
 Summary:    A music player with *.cue support
 Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
 
@@ -15,6 +15,7 @@ BuildRequires:  ffmpeg-devel
 BuildRequires:  flac-devel
 BuildRequires:  faad2-devel
 BuildRequires:  libmms-devel
+BuildRequires:  gtk3-devel
 BuildRequires:  gtk2-devel
 BuildRequires:  intltool gettext-devel
 BuildRequires:  libcddb-devel
@@ -81,7 +82,11 @@ This package contains plugins for %{name}
 %setup -q
 
 %build
-%configure
+%if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
+    %configure --disable-gtk2 --enable-gtk3
+%else
+    %configure --enable-gtk2 --disable-gtk3
+%endif
 make %{?_smp_mflags}
 
 
@@ -119,6 +124,10 @@ cp $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/24x24/apps/%{name}.png \
 
 
 %changelog
+* Tue Oct 23 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.6-1.R
+- update to 0.5.6
+- switch to GTK3
+
 * Tue Sep 11 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.5-2.R
 - add some BR
 

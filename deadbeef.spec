@@ -15,8 +15,6 @@ BuildRequires:  ffmpeg-devel
 BuildRequires:  flac-devel
 BuildRequires:  faad2-devel
 BuildRequires:  libmms-devel
-BuildRequires:  gtk3-devel
-BuildRequires:  gtk2-devel
 BuildRequires:  intltool gettext-devel
 BuildRequires:  libcddb-devel
 BuildRequires:  libcdio-devel
@@ -32,8 +30,10 @@ BuildRequires:  yasm-devel
 BuildRequires:  bison
 %if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
 BuildRequires:  libstdc++-static
+BuildRequires:  gtk3-devel
 %else
 BuildRequires:  libstdc++-devel
+BuildRequires:  gtk2-devel
 %endif
 
 Requires:   %{name}-plugins = %{version}-%{release}

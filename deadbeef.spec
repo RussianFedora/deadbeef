@@ -1,6 +1,6 @@
 Name:       deadbeef
 Version:    0.5.6
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A music player with *.cue support
 Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
 
@@ -28,6 +28,8 @@ BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  wavpack-devel
 BuildRequires:  yasm-devel
 BuildRequires:  bison
+BuildRequires:  imlib2-devel
+BuildRequires:  libzip-devel
 %if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
 BuildRequires:  libstdc++-static
 BuildRequires:  gtk3-devel
@@ -83,9 +85,9 @@ This package contains plugins for %{name}
 
 %build
 %if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
-    %configure --disable-gtk2 --enable-gtk3
+    %configure --disable-gtk2 --enable-gtk3 --enable-ffmpeg
 %else
-    %configure --enable-gtk2 --disable-gtk3
+    %configure --enable-gtk2 --disable-gtk3 --enable-ffmpeg
 %endif
 make %{?_smp_mflags}
 
@@ -124,6 +126,9 @@ cp $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/24x24/apps/%{name}.png \
 
 
 %changelog
+* Thu Oct 25 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.6-2.R
+- added plugins artwork, ffmpeg, vfs_zip
+
 * Tue Oct 23 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.6-1.R
 - update to 0.5.6
 - switch to GTK3

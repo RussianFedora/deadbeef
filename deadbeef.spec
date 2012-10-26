@@ -1,6 +1,6 @@
 Name:       deadbeef
 Version:    0.5.6
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    A music player with *.cue support
 Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
 
@@ -11,7 +11,11 @@ Source0:    http://downloads.sourceforge.net/project/%{name}/%{name}-%{version}.
 
 BuildRequires:  alsa-lib-devel
 BuildRequires:  dbus-devel
+%if 0%{?fedora} >= 18 || 0%{?rhel} >= 7
+BuildRequires:  ffmpeg-compat-devel
+%else
 BuildRequires:  ffmpeg-devel
+%endif
 BuildRequires:  flac-devel
 BuildRequires:  faad2-devel
 BuildRequires:  libmms-devel
@@ -126,6 +130,9 @@ cp $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/24x24/apps/%{name}.png \
 
 
 %changelog
+* Thu Oct 26 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.6-3.R
+- correct compile for >= F18
+
 * Thu Oct 25 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.6-2.R
 - added plugins artwork, ffmpeg, vfs_zip
 

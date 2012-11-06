@@ -1,6 +1,6 @@
 Name:       deadbeef
 Version:    0.5.6
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    A music player with *.cue support
 Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
 
@@ -88,10 +88,11 @@ This package contains plugins for %{name}
 %setup -q
 
 %build
+%configure --enable-ffmpeg --docdir=%{_defaultdocdir}/%{name}-%{version} \
 %if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
-    %configure --disable-gtk2 --enable-gtk3 --enable-ffmpeg
+    --disable-gtk2 --enable-gtk3
 %else
-    %configure --enable-gtk2 --disable-gtk3 --enable-ffmpeg
+    --enable-gtk2 --disable-gtk3
 %endif
 make %{?_smp_mflags}
 
@@ -100,7 +101,7 @@ make %{?_smp_mflags}
 make install DESTDIR=$RPM_BUILD_ROOT
 find $RPM_BUILD_ROOT -name "*.la" -exec rm {} \;
 find $RPM_BUILD_ROOT -name "*.a" -exec rm {} \;
-rm -rf $RPM_BUILD_ROOT%{_defaultdocdir}
+#rm -rf $RPM_BUILD_ROOT%{_defaultdocdir}
 
 install -dD $RPM_BUILD_ROOT%{_datadir}/pixmaps
 
@@ -130,6 +131,9 @@ cp $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/24x24/apps/%{name}.png \
 
 
 %changelog
+* Tue Nov 06 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.6-4.R
+- added documentation to help menu
+
 * Thu Oct 26 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.6-3.R
 - correct compile for >= F18
 

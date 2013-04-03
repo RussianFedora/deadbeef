@@ -1,6 +1,6 @@
 Name:       deadbeef
 Version:    0.5.6
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    A music player with *.cue support
 Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
 
@@ -131,6 +131,9 @@ cp $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/24x24/apps/%{name}.png \
 
 
 %changelog
+* Wed Apr 03 2013 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.6-5.R
+- bump release for update dependencies
+
 * Tue Nov 06 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.6-4.R
 - added documentation to help menu
 

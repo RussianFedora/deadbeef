@@ -1,6 +1,6 @@
 Name:       deadbeef
 Version:    0.6.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A music player with *.cue support
 Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
 
@@ -87,6 +87,16 @@ This package contains plugins for %{name}
 
 %prep
 %setup -q
+#https://code.google.com/p/ddb/issues/detail?id=999
+find plugins -name "[^.]*" -type f \
+    | while read f ;
+    do
+        sed -i -e "s!Foundation, Inc., 59.*!Foundation,\ Inc.,\ 51\ Franklin Street,\ Fifth\ Floor,\ Boston,\ MA!" "$f" ;
+    done
+sed -i -e "s!Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.!Foundation,\ Inc.,\ 51\ Franklin Street,\ Fifth\ Floor,\ Boston,\ MA!" "plugins/sid/sidplay-libs/libsidplay/src/reloc65.c" ;
+
+#https://code.google.com/p/ddb/issues/detail?id=1000
+chmod -x plugins/ao/ao.h
 
 %build
 %configure --enable-ffmpeg --docdir=%{_defaultdocdir}/%{name}-%{version} \
@@ -108,16 +118,22 @@ install -dD %{buildroot}%{_datadir}/pixmaps
 cp %{buildroot}%{_datadir}/icons/hicolor/24x24/apps/%{name}.png \
     %{buildroot}%{_datadir}/pixmaps
 
-#desktop-file-validate %{_datadir}/applications/%{name}.desktop
+#https://code.google.com/p/ddb/issues/detail?id=1001
+sed -i -e 's!Play Shortcut Group!X-Play Shortcut Group!' %{buildroot}%{_datadir}/applications/%{name}.desktop
+sed -i -e 's!Pause Shortcut Group!X-Pause Shortcut Group!' %{buildroot}%{_datadir}/applications/%{name}.desktop
+sed -i -e 's!Stop Shortcut Group!X-Stop Shortcut Group!' %{buildroot}%{_datadir}/applications/%{name}.desktop
+sed -i -e 's!Next Shortcut Group!X-Next Shortcut Group!' %{buildroot}%{_datadir}/applications/%{name}.desktop
+sed -i -e 's!Prev Shortcut Group!X-Prev Shortcut Group!' %{buildroot}%{_datadir}/applications/%{name}.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %find_lang %{name}
 
 
 %files -f %{name}.lang
 %doc README ChangeLog COPYING AUTHORS
+%{_defaultdocdir}/%{name}-%{version}
 %{_bindir}/%{name}
 %dir %{_libdir}/%{name}
-%{_libdir}/%{name}/convpresets
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/pixmaps/*
 %{_datadir}/pixmaps/%{name}.png
@@ -125,14 +141,18 @@ cp %{buildroot}%{_datadir}/icons/hicolor/24x24/apps/%{name}.png \
 
 
 %files devel
+%{_libdir}/%{name}/*.so
 %{_includedir}/%{name}/*
 
 %files plugins
-%{_libdir}/%{name}/*.so
+%{_libdir}/%{name}/convpresets
 %{_libdir}/%{name}/*.so.*
 
 
 %changelog
+* Tue Nov 26 2013 Vasiliy N. Glazov <vascom2@gmail.com> - 0.6.0-2.R
+- correct FSF address and other errors and warnings
+
 * Tue Nov 26 2013 Vasiliy N. Glazov <vascom2@gmail.com> - 0.6.0-1.R
 - update to 0.6.0
 

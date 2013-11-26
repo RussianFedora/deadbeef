@@ -103,7 +103,7 @@ chmod -x plugins/ao/ao.h
 %if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
     --disable-gtk2 --enable-gtk3
 %else
-    --enable-gtk2 --disable-gtk3
+    --enable-gtk2 --disable-gtk3 --disable-lfm
 %endif
 make %{?_smp_mflags}
 
@@ -141,12 +141,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %files devel
-%{_libdir}/%{name}/*.so
 %{_includedir}/%{name}/*
 
 %files plugins
 %{_libdir}/%{name}/convpresets
 %{_libdir}/%{name}/*.so.*
+%{_libdir}/%{name}/*.so
 
 
 %changelog

@@ -1,6 +1,6 @@
 Name:       deadbeef
-Version:    0.5.6
-Release:    5%{?dist}
+Version:    0.6.0
+Release:    1%{?dist}
 Summary:    A music player with *.cue support
 Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
 
@@ -41,6 +41,7 @@ BuildRequires:  gtk3-devel
 BuildRequires:  libstdc++-devel
 BuildRequires:  gtk2-devel
 %endif
+BuildRequires:  desktop-file-utils
 
 Requires:   %{name}-plugins = %{version}-%{release}
 
@@ -98,15 +99,16 @@ make %{?_smp_mflags}
 
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -name "*.la" -exec rm {} \;
-find $RPM_BUILD_ROOT -name "*.a" -exec rm {} \;
-#rm -rf $RPM_BUILD_ROOT%{_defaultdocdir}
+%make_install
+find %{buildroot} -name "*.la" -exec rm {} \;
+find %{buildroot} -name "*.a" -exec rm {} \;
 
-install -dD $RPM_BUILD_ROOT%{_datadir}/pixmaps
+install -dD %{buildroot}%{_datadir}/pixmaps
 
-cp $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/24x24/apps/%{name}.png \
-    $RPM_BUILD_ROOT%{_datadir}/pixmaps
+cp %{buildroot}%{_datadir}/icons/hicolor/24x24/apps/%{name}.png \
+    %{buildroot}%{_datadir}/pixmaps
+
+#desktop-file-validate %{_datadir}/applications/%{name}.desktop
 
 %find_lang %{name}
 
@@ -131,13 +133,16 @@ cp $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/24x24/apps/%{name}.png \
 
 
 %changelog
+* Tue Nov 26 2013 Vasiliy N. Glazov <vascom2@gmail.com> - 0.6.0-1.R
+- update to 0.6.0
+
 * Wed Apr 03 2013 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.6-5.R
 - bump release for update dependencies
 
 * Tue Nov 06 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.6-4.R
 - added documentation to help menu
 
-* Thu Oct 26 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.6-3.R
+* Fri Oct 26 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.6-3.R
 - correct compile for >= F18
 
 * Thu Oct 25 2012 Vasiliy N. Glazov <vascom2@gmail.com> - 0.5.6-2.R

@@ -1,6 +1,6 @@
 Name:       deadbeef
-Version:    0.6.0
-Release:    2%{?dist}
+Version:    0.6.1
+Release:    1%{?dist}
 Summary:    A music player with *.cue support
 Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
 
@@ -11,11 +11,7 @@ Source0:    http://downloads.sourceforge.net/project/%{name}/%{name}-%{version}.
 
 BuildRequires:  alsa-lib-devel
 BuildRequires:  dbus-devel
-%if 0%{?fedora} >= 18 || 0%{?rhel} >= 7
-BuildRequires:  ffmpeg-compat-devel
-%else
 BuildRequires:  ffmpeg-devel
-%endif
 BuildRequires:  flac-devel
 BuildRequires:  faad2-devel
 BuildRequires:  libmms-devel
@@ -35,7 +31,6 @@ BuildRequires:  bison
 BuildRequires:  imlib2-devel
 BuildRequires:  libzip-devel
 %if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
-BuildRequires:  libstdc++-static
 BuildRequires:  gtk3-devel
 %else
 BuildRequires:  libstdc++-devel
@@ -87,16 +82,13 @@ This package contains plugins for %{name}
 
 %prep
 %setup -q
-#https://code.google.com/p/ddb/issues/detail?id=999
+# https://code.google.com/p/ddb/issues/detail?id=999
 find plugins -name "[^.]*" -type f \
     | while read f ;
     do
         sed -i -e "s!Foundation, Inc., 59.*!Foundation,\ Inc.,\ 51\ Franklin Street,\ Fifth\ Floor,\ Boston,\ MA!" "$f" ;
     done
 sed -i -e "s!Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.!Foundation,\ Inc.,\ 51\ Franklin Street,\ Fifth\ Floor,\ Boston,\ MA!" "plugins/sid/sidplay-libs/libsidplay/src/reloc65.c" ;
-
-#https://code.google.com/p/ddb/issues/detail?id=1000
-chmod -x plugins/ao/ao.h
 
 %build
 %configure --enable-ffmpeg --docdir=%{_defaultdocdir}/%{name}-%{version} \
@@ -150,6 +142,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Mon Feb 03 2014 Vasiliy N. Glazov <vascom2@gmail.com> - 0.6.1-1.R
+- update to 0.6.1
+
 * Tue Nov 26 2013 Vasiliy N. Glazov <vascom2@gmail.com> - 0.6.0-2.R
 - correct FSF address and other errors and warnings
 

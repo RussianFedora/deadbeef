@@ -1,5 +1,5 @@
 Name:       deadbeef
-Version:    0.6.1
+Version:    0.6.2
 Release:    1%{?dist}
 Summary:    A music player with *.cue support
 Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
@@ -81,7 +81,7 @@ This package contains plugins for %{name}
 
 
 %prep
-%setup -q
+%setup -q -n deadbeef-0.6.2
 # https://code.google.com/p/ddb/issues/detail?id=999
 find plugins -name "[^.]*" -type f \
     | while read f ;
@@ -89,13 +89,15 @@ find plugins -name "[^.]*" -type f \
         sed -i -e "s!Foundation, Inc., 59.*!Foundation,\ Inc.,\ 51\ Franklin Street,\ Fifth\ Floor,\ Boston,\ MA!" "$f" ;
     done
 sed -i -e "s!Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.!Foundation,\ Inc.,\ 51\ Franklin Street,\ Fifth\ Floor,\ Boston,\ MA!" "plugins/sid/sidplay-libs/libsidplay/src/reloc65.c" ;
+sed -i -e "s!Boston, MA!Boston, MA\\\n\"!" "plugins/adplug/plugin.c" ;
+sed -i -e "s!Boston, MA!Boston, MA\\\n\"!" "plugins/mms/mmsplug.c" ;
 
 %build
 %configure --enable-ffmpeg --docdir=%{_defaultdocdir}/%{name}-%{version} \
 %if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
-    --disable-gtk2 --enable-gtk3
+    --disable-gtk2 --enable-gtk3 --disable-static
 %else
-    --enable-gtk2 --disable-gtk3 --disable-lfm
+    --enable-gtk2 --disable-gtk3 --disable-lfm --disable-static
 %endif
 make %{?_smp_mflags}
 
@@ -116,6 +118,8 @@ sed -i -e 's!Pause Shortcut Group!X-Pause Shortcut Group!' %{buildroot}%{_datadi
 sed -i -e 's!Stop Shortcut Group!X-Stop Shortcut Group!' %{buildroot}%{_datadir}/applications/%{name}.desktop
 sed -i -e 's!Next Shortcut Group!X-Next Shortcut Group!' %{buildroot}%{_datadir}/applications/%{name}.desktop
 sed -i -e 's!Prev Shortcut Group!X-Prev Shortcut Group!' %{buildroot}%{_datadir}/applications/%{name}.desktop
+head -n 43 %{buildroot}%{_datadir}/applications/%{name}.desktop > %{buildroot}%{_datadir}/applications/%{name}.desktop2
+mv %{buildroot}%{_datadir}/applications/%{name}.desktop2 %{buildroot}%{_datadir}/applications/%{name}.desktop
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %find_lang %{name}
@@ -137,11 +141,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %files plugins
 %{_libdir}/%{name}/convpresets
-%{_libdir}/%{name}/*.so.*
 %{_libdir}/%{name}/*.so
 
 
 %changelog
+* Thu Aug 07 2014 Vasiliy N. Glazov <vascom2@gmail.com> - 0.6.2-1.R
+- update to 0.6.2
+
 * Mon Feb 03 2014 Vasiliy N. Glazov <vascom2@gmail.com> - 0.6.1-1.R
 - update to 0.6.1
 

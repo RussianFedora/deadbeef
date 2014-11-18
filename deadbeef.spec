@@ -1,6 +1,6 @@
 Name:       deadbeef
 Version:    0.6.2
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    A music player with *.cue support
 Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
 
@@ -145,6 +145,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Tue Nov 18 2014 Vasiliy N. Glazov <vascom2@gmail.com> - 0.6.2-3.R
+- Bump rebuild for new ffmpeg
+
 * Fri Oct 03 2014 Vasiliy N. Glazov <vascom2@gmail.com> - 0.6.2-2.R
 - Bump rebuild for new cdio
 

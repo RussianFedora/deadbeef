@@ -7,7 +7,7 @@ Summary(ru):Музыкальный проигрыватель с поддерж�
 Group:      Applications/Multimedia
 License:    GPLv2
 URL:        http://deadbeef.sourceforge.net
-Source0:    %{name}-%{version}-git6569ad.tar.xz
+Source0:    %{name}-%{version}-git91154c.tar.xz
 Patch1:     deadbeef-0.6.2-valid-desktop-file.patch
 
 BuildRequires:  alsa-lib-devel
@@ -152,7 +152,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
-* Fri Oct 30 2015 Arkady L. Shane <ashejn@russianfedora.pro> - 0.6.2-4.gitef3d2f.R
+* Fri Oct 30 2015 Arkady L. Shane <ashejn@russianfedora.pro> - 0.6.2-4.git91154c.R
 - update to last snapshot
 
 * Tue Nov 18 2014 Vasiliy N. Glazov <vascom2@gmail.com> - 0.6.2-3.R

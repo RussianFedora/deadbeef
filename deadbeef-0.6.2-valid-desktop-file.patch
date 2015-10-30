@@ -1,0 +1,15 @@
+diff -urN deadbeef-0.6.2.orig/deadbeef.desktop.in deadbeef-0.6.2/deadbeef.desktop.in
+--- deadbeef-0.6.2.orig/deadbeef.desktop.in	2015-10-30 17:16:15.508031352 +0300
++++ deadbeef-0.6.2/deadbeef.desktop.in	2015-10-30 17:16:29.480446672 +0300
+@@ -14,9 +14,9 @@
+ Icon=deadbeef
+ X-PulseAudio-Properties=media.role=music
+ 
+-X-Ayatana-Desktop-Shortcuts=Play;Pause;Stop;Next;Prev
++X-Ayatana-Desktop-Shortcuts=Play;Pause;Stop;Next;Prev;
+ 
+-Keywords=Sound;Music;Audio;Player;Musicplayer;MP3
++Keywords=Sound;Music;Audio;Player;Musicplayer;MP3;
+ 
+ [Play Shortcut Group]
+ Name=Play

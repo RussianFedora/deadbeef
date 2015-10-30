@@ -1,15 +1,17 @@
 Name:       deadbeef
 Version:    0.6.2
-Release:    3%{?dist}
+Release:    4.gitef3d2f%{?dist}
 Summary:    A music player with *.cue support
 Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
 
 Group:      Applications/Multimedia
 License:    GPLv2
 URL:        http://deadbeef.sourceforge.net
-Source0:    http://downloads.sourceforge.net/project/%{name}/%{name}-%{version}.tar.bz2
+Source0:    %{name}-%{version}-git6569ad.tar.xz
+Patch1:     deadbeef-0.6.2-valid-desktop-file.patch
 
 BuildRequires:  alsa-lib-devel
+BuildRequires:  automake, autoconf, libtool
 BuildRequires:  dbus-devel
 BuildRequires:  ffmpeg-devel
 BuildRequires:  flac-devel
@@ -30,6 +32,7 @@ BuildRequires:  yasm-devel
 BuildRequires:  bison
 BuildRequires:  imlib2-devel
 BuildRequires:  libzip-devel
+BuildRequires:  jansson-devel
 %if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
 BuildRequires:  gtk3-devel
 %else
@@ -82,6 +85,8 @@ This package contains plugins for %{name}
 
 %prep
 %setup -q -n deadbeef-0.6.2
+%patch1 -p1 -b .valid
+
 # https://code.google.com/p/ddb/issues/detail?id=999
 find plugins -name "[^.]*" -type f \
     | while read f ;
@@ -93,9 +98,10 @@ sed -i -e "s!Boston, MA!Boston, MA\\\n\"!" "plugins/adplug/plugin.c" ;
 sed -i -e "s!Boston, MA!Boston, MA\\\n\"!" "plugins/mms/mmsplug.c" ;
 
 %build
-%configure --enable-ffmpeg --docdir=%{_defaultdocdir}/%{name}-%{version} \
+if ! test -x configure; then ./autogen.sh; fi;
+  %configure --enable-ffmpeg --docdir=%{_defaultdocdir}/%{name}-%{version} \
 %if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
-    --disable-gtk2 --enable-gtk3 --disable-static
+    --disable-gtk2 --enable-gtk3 --disable-static --disable-gme
 %else
     --enable-gtk2 --disable-gtk3 --disable-lfm --disable-static
 %endif
@@ -134,6 +140,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/pixmaps/*
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/icons/hicolor/*/apps/*
+%{_libdir}/%{name}/data68/*
 
 
 %files devel
@@ -145,6 +152,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Oct 30 2015 Arkady L. Shane <ashejn@russianfedora.pro> - 0.6.2-4.gitef3d2f.R
+- update to last snapshot
+
 * Tue Nov 18 2014 Vasiliy N. Glazov <vascom2@gmail.com> - 0.6.2-3.R
 - Bump rebuild for new ffmpeg
 

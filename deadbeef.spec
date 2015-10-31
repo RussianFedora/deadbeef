@@ -1,13 +1,15 @@
+%define rev 20151030git91154c
+
 Name:       deadbeef
 Version:    0.6.2
-Release:    4.git91154c%{?dist}
+Release:    4.%{rev}%{?dist}
 Summary:    A music player with *.cue support
 Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
 
 Group:      Applications/Multimedia
 License:    GPLv2
 URL:        http://deadbeef.sourceforge.net
-Source0:    %{name}-%{version}-git91154c.tar.xz
+Source0:    %{name}-%{version}-%{rev}.tar.xz
 Patch1:     deadbeef-0.6.2-valid-desktop-file.patch
 
 BuildRequires:  alsa-lib-devel
@@ -152,7 +154,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
-* Fri Oct 30 2015 Arkady L. Shane <ashejn@russianfedora.pro> - 0.6.2-4.git91154c.R
+* Fri Oct 30 2015 Arkady L. Shane <ashejn@russianfedora.pro> - 0.6.2-4.20151030git91154c.R
 - update to last snapshot
 
 * Tue Nov 18 2014 Vasiliy N. Glazov <vascom2@gmail.com> - 0.6.2-3.R

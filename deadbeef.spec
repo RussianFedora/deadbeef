@@ -1,6 +1,6 @@
 Name:       deadbeef
 Version:    0.6.2
-Release:    4.gitef3d2f%{?dist}
+Release:    4.git91154c%{?dist}
 Summary:    A music player with *.cue support
 Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
 

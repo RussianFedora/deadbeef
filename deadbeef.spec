@@ -1,6 +1,6 @@
 Name:       deadbeef
-Version:    0.6.2
-Release:    3%{?dist}
+Version:    0.7.0
+Release:    1%{?dist}
 Summary:    A music player with *.cue support
 Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
 
@@ -37,6 +37,7 @@ BuildRequires:  libstdc++-devel
 BuildRequires:  gtk2-devel
 %endif
 BuildRequires:  desktop-file-utils
+BuildRequires:  jansson-devel
 
 Requires:   %{name}-plugins = %{version}-%{release}
 
@@ -81,16 +82,17 @@ This package contains plugins for %{name}
 
 
 %prep
-%setup -q -n deadbeef-0.6.2
+%setup -q
 # https://code.google.com/p/ddb/issues/detail?id=999
 find plugins -name "[^.]*" -type f \
     | while read f ;
     do
         sed -i -e "s!Foundation, Inc., 59.*!Foundation,\ Inc.,\ 51\ Franklin Street,\ Fifth\ Floor,\ Boston,\ MA!" "$f" ;
     done
-sed -i -e "s!Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.!Foundation,\ Inc.,\ 51\ Franklin Street,\ Fifth\ Floor,\ Boston,\ MA!" "plugins/sid/sidplay-libs/libsidplay/src/reloc65.c" ;
-sed -i -e "s!Boston, MA!Boston, MA\\\n\"!" "plugins/adplug/plugin.c" ;
-sed -i -e "s!Boston, MA!Boston, MA\\\n\"!" "plugins/mms/mmsplug.c" ;
+sed -i -e "s!Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.!Foundation,\ Inc.,\ 51\ Franklin Street,\ Fifth\ Floor,\ Boston,\ MA!" "plugins/sid/sidplay-libs/libsidplay/src/reloc65.c"
+sed -i -e "s!Boston, MA!Boston, MA\\\n\"!" "plugins/adplug/plugin.c"
+sed -i -e "s!Boston, MA!Boston, MA\\\n\"!" "plugins/mms/mmsplug.c"
+sed -i -e "s!Boston, MA!Boston, MA\\\n\"!" "plugins/gme/cgme.c"
 
 %build
 %configure --enable-ffmpeg --docdir=%{_defaultdocdir}/%{name}-%{version} \
@@ -99,7 +101,7 @@ sed -i -e "s!Boston, MA!Boston, MA\\\n\"!" "plugins/mms/mmsplug.c" ;
 %else
     --enable-gtk2 --disable-gtk3 --disable-lfm --disable-static
 %endif
-make %{?_smp_mflags}
+%make_build
 
 
 %install
@@ -120,13 +122,18 @@ sed -i -e 's!Next Shortcut Group!X-Next Shortcut Group!' %{buildroot}%{_datadir}
 sed -i -e 's!Prev Shortcut Group!X-Prev Shortcut Group!' %{buildroot}%{_datadir}/applications/%{name}.desktop
 head -n 43 %{buildroot}%{_datadir}/applications/%{name}.desktop > %{buildroot}%{_datadir}/applications/%{name}.desktop2
 mv %{buildroot}%{_datadir}/applications/%{name}.desktop2 %{buildroot}%{_datadir}/applications/%{name}.desktop
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+
+sed -i -e "s!MP3!MP3;!" %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %find_lang %{name}
 
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+
 
 %files -f %{name}.lang
-%doc README ChangeLog COPYING AUTHORS
+%doc README ChangeLog AUTHORS
+%license COPYING
 %{_defaultdocdir}/%{name}-%{version}
 %{_bindir}/%{name}
 %dir %{_libdir}/%{name}
@@ -142,9 +149,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %files plugins
 %{_libdir}/%{name}/convpresets
 %{_libdir}/%{name}/*.so
+%{_libdir}/%{name}/data68
 
 
 %changelog
+* Mon Feb 01 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 0.7.0-1.R
+- Update to 0.7.0
+
 * Tue Nov 18 2014 Vasiliy N. Glazov <vascom2@gmail.com> - 0.6.2-3.R
 - Bump rebuild for new ffmpeg
 

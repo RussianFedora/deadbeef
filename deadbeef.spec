@@ -1,6 +1,6 @@
 Name:       deadbeef
 Version:    0.7.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A music player with *.cue support
 Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
 
@@ -20,6 +20,7 @@ BuildRequires:  libcddb-devel
 BuildRequires:  libcdio-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  libmad-devel
+BuildRequires:  libmpg123-devel
 BuildRequires:  libsamplerate-devel
 BuildRequires:  libsndfile-devel
 BuildRequires:  libtool
@@ -94,6 +95,8 @@ sed -i -e "s!Boston, MA!Boston, MA\\\n\"!" "plugins/adplug/plugin.c"
 sed -i -e "s!Boston, MA!Boston, MA\\\n\"!" "plugins/mms/mmsplug.c"
 sed -i -e "s!Boston, MA!Boston, MA\\\n\"!" "plugins/gme/cgme.c"
 
+find . -name '*.cpp' -or -name '*.hpp' -or -name '*.h' | xargs chmod 644
+
 %build
 %configure --enable-ffmpeg --docdir=%{_defaultdocdir}/%{name}-%{version} \
 %if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
@@ -130,6 +133,20 @@ sed -i -e "s!MP3!MP3;!" %{buildroot}%{_datadir}/applications/%{name}.desktop
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
+%post
+/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+/usr/bin/update-desktop-database &> /dev/null || :
+
+%postun
+if [ $1 -eq 0 ] ; then
+    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+fi
+/usr/bin/update-desktop-database &> /dev/null || :
+
+%posttrans
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+
 
 %files -f %{name}.lang
 %doc README ChangeLog AUTHORS
@@ -153,6 +170,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Tue Feb 02 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 0.7.0-2.R
+- Add Icon Cache scriptlets
+- Add desktop-database scriptlets
+- Add libmpg123 support
+
 * Mon Feb 01 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 0.7.0-1.R
 - Update to 0.7.0
 

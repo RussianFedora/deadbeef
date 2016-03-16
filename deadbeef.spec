@@ -1,6 +1,6 @@
 Name:       deadbeef
-Version:    0.7.0
-Release:    2%{?dist}
+Version:    0.7.1
+Release:    1%{?dist}
 Summary:    A music player with *.cue support
 Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
 
@@ -170,6 +170,9 @@ fi
 
 
 %changelog
+* Wed Mar 16 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 0.7.1-1.R
+- Update to 0.7.1
+
 * Tue Feb 02 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 0.7.0-2.R
 - Add Icon Cache scriptlets
 - Add desktop-database scriptlets

@@ -1,44 +1,45 @@
-Name:       deadbeef
-Version:    0.7.1
-Release:    1%{?dist}
-Summary:    A music player with *.cue support
-Summary(ru):Музыкальный проигрыватель с поддержкой *.cue
+Name:           deadbeef
+Version:        0.7.2
+Release:        1%{?dist}
+Summary:        A music player with *.cue support
+Summary(ru):    Музыкальный проигрыватель с поддержкой *.cue
 
-Group:      Applications/Multimedia
-License:    GPLv2
-URL:        http://deadbeef.sourceforge.net
-Source0:    http://downloads.sourceforge.net/project/%{name}/%{name}-%{version}.tar.bz2
+Group:          Applications/Multimedia
+License:        GPLv2
+URL:            http://deadbeef.sourceforge.net
+Source0:        http://downloads.sourceforge.net/project/%{name}/%{name}-%{version}.tar.bz2
 
-BuildRequires:  alsa-lib-devel
-BuildRequires:  dbus-devel
+BuildRequires:  pkgconfig(alsa)
+BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  ffmpeg-devel
-BuildRequires:  flac-devel
+BuildRequires:  pkgconfig(flac)
 BuildRequires:  faad2-devel
-BuildRequires:  libmms-devel
-BuildRequires:  intltool gettext-devel
-BuildRequires:  libcddb-devel
-BuildRequires:  libcdio-devel
-BuildRequires:  libcurl-devel
-BuildRequires:  libmad-devel
-BuildRequires:  libmpg123-devel
-BuildRequires:  libsamplerate-devel
-BuildRequires:  libsndfile-devel
+BuildRequires:  pkgconfig(libmms)
+BuildRequires:  intltool
+BuildRequires:  gettext-devel
+BuildRequires:  pkgconfig(libcddb)
+BuildRequires:  pkgconfig(libcdio)
+BuildRequires:  pkgconfig(libcurl)
+BuildRequires:  pkgconfig(mad)
+BuildRequires:  pkgconfig(libmpg123)
+BuildRequires:  pkgconfig(samplerate)
+BuildRequires:  pkgconfig(sndfile)
 BuildRequires:  libtool
-BuildRequires:  libvorbis-devel
-BuildRequires:  pulseaudio-libs-devel
-BuildRequires:  wavpack-devel
+BuildRequires:  pkgconfig(vorbis)
+BuildRequires:  pkgconfig(libpulse)
+BuildRequires:  pkgconfig(wavpack)
 BuildRequires:  yasm-devel
 BuildRequires:  bison
-BuildRequires:  imlib2-devel
-BuildRequires:  libzip-devel
+BuildRequires:  pkgconfig(imlib2)
+BuildRequires:  pkgconfig(libzip)
 %if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
-BuildRequires:  gtk3-devel
+BuildRequires:  pkgconfig(gtk+-3.0)
 %else
 BuildRequires:  libstdc++-devel
-BuildRequires:  gtk2-devel
+BuildRequires:  pkgconfig(gtk+-2.0)
 %endif
 BuildRequires:  desktop-file-utils
-BuildRequires:  jansson-devel
+BuildRequires:  pkgconfig(jansson)
 
 Requires:   %{name}-plugins = %{version}-%{release}
 
@@ -170,6 +171,9 @@ fi
 
 
 %changelog
+* Thu Apr 28 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 0.7.2-1.R
+- Update to 0.7.2
+
 * Wed Mar 16 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 0.7.1-1.R
 - Update to 0.7.1
 

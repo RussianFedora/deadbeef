@@ -8,6 +8,7 @@ Group:          Applications/Multimedia
 License:        GPLv2
 URL:            http://deadbeef.sourceforge.net
 Source0:        http://downloads.sourceforge.net/project/%{name}/%{name}-%{version}.tar.bz2
+Patch:          desktop.patch
 
 BuildRequires:  pkgconfig(alsa)
 BuildRequires:  pkgconfig(dbus-1)
@@ -85,6 +86,7 @@ This package contains plugins for %{name}
 
 %prep
 %setup -q
+%patch -p0
 # https://code.google.com/p/ddb/issues/detail?id=999
 find plugins -name "[^.]*" -type f \
     | while read f ;
@@ -111,7 +113,6 @@ find . -name '*.cpp' -or -name '*.hpp' -or -name '*.h' | xargs chmod 644
 %install
 %make_install
 find %{buildroot} -name "*.la" -exec rm {} \;
-find %{buildroot} -name "*.a" -exec rm {} \;
 
 install -dD %{buildroot}%{_datadir}/pixmaps
 
@@ -173,6 +174,7 @@ fi
 %changelog
 * Thu Apr 28 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 0.7.2-1.R
 - Update to 0.7.2
+- Add patch for desktop-file
 
 * Wed Mar 16 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 0.7.1-1.R
 - Update to 0.7.1

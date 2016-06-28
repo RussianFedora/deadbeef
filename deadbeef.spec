@@ -42,7 +42,8 @@ BuildRequires:  pkgconfig(gtk+-2.0)
 BuildRequires:  desktop-file-utils
 BuildRequires:  pkgconfig(jansson)
 
-Requires:   %{name}-plugins = %{version}-%{release}
+Requires:       hicolor-icon-theme
+Requires:       %{name}-plugins = %{version}-%{release}
 
 
 %description

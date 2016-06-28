@@ -1,6 +1,6 @@
 Name:           deadbeef
 Version:        0.7.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A music player with *.cue support
 Summary(ru):    Музыкальный проигрыватель с поддержкой *.cue
 
@@ -173,6 +173,9 @@ fi
 
 
 %changelog
+* Tue Jun 14 2016 Arkady L. Shane <ashejn@russianfedora.pro> - 0.7.2-2.R
+- rebuilt against new ffmpeg
+
 * Thu Apr 28 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 0.7.2-1.R
 - Update to 0.7.2
 - Add patch for desktop-file

@@ -120,15 +120,6 @@ install -dD %{buildroot}%{_datadir}/pixmaps
 cp %{buildroot}%{_datadir}/icons/hicolor/24x24/apps/%{name}.png \
     %{buildroot}%{_datadir}/pixmaps
 
-#https://code.google.com/p/ddb/issues/detail?id=1001
-sed -i -e 's!Play Shortcut Group!X-Play Shortcut Group!' %{buildroot}%{_datadir}/applications/%{name}.desktop
-sed -i -e 's!Pause Shortcut Group!X-Pause Shortcut Group!' %{buildroot}%{_datadir}/applications/%{name}.desktop
-sed -i -e 's!Stop Shortcut Group!X-Stop Shortcut Group!' %{buildroot}%{_datadir}/applications/%{name}.desktop
-sed -i -e 's!Next Shortcut Group!X-Next Shortcut Group!' %{buildroot}%{_datadir}/applications/%{name}.desktop
-sed -i -e 's!Prev Shortcut Group!X-Prev Shortcut Group!' %{buildroot}%{_datadir}/applications/%{name}.desktop
-head -n 43 %{buildroot}%{_datadir}/applications/%{name}.desktop > %{buildroot}%{_datadir}/applications/%{name}.desktop2
-mv %{buildroot}%{_datadir}/applications/%{name}.desktop2 %{buildroot}%{_datadir}/applications/%{name}.desktop
-
 sed -i -e "s!MP3!MP3;!" %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %find_lang %{name}

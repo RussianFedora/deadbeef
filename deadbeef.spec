@@ -1,11 +1,11 @@
 Name:           deadbeef
 Version:        0.7.2
-Release:        2%{?dist}
-Summary:        A music player with *.cue support
-Summary(ru):    Музыкальный проигрыватель с поддержкой *.cue
+Release:        3%{?dist}
+Summary:        An audio player for GNU/Linux
+Summary(ru):    Музыкальный проигрыватель для GNU/Linux
 
 Group:          Applications/Multimedia
-License:        GPLv2
+License:        GPLv2+
 URL:            http://deadbeef.sourceforge.net
 Source0:        http://downloads.sourceforge.net/project/%{name}/%{name}-%{version}.tar.bz2
 Patch:          desktop.patch
@@ -88,18 +88,18 @@ This package contains plugins for %{name}
 %prep
 %setup -q
 %patch -p0
-# https://code.google.com/p/ddb/issues/detail?id=999
-find plugins -name "[^.]*" -type f \
-    | while read f ;
-    do
-        sed -i -e "s!Foundation, Inc., 59.*!Foundation,\ Inc.,\ 51\ Franklin Street,\ Fifth\ Floor,\ Boston,\ MA!" "$f" ;
-    done
+# https://github.com/Alexey-Yakovenko/deadbeef/issues/901
+find plugins -name "[^.]*" -type f -exec \
+    sed -i -e "s!Foundation, Inc., 59.*!Foundation,\ Inc.,\ 51\ Franklin Street,\ Fifth\ Floor,\ Boston,\ MA!" {} \;
+
 sed -i -e "s!Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.!Foundation,\ Inc.,\ 51\ Franklin Street,\ Fifth\ Floor,\ Boston,\ MA!" "plugins/sid/sidplay-libs/libsidplay/src/reloc65.c"
 sed -i -e "s!Boston, MA!Boston, MA\\\n\"!" "plugins/adplug/plugin.c"
 sed -i -e "s!Boston, MA!Boston, MA\\\n\"!" "plugins/mms/mmsplug.c"
 sed -i -e "s!Boston, MA!Boston, MA\\\n\"!" "plugins/gme/cgme.c"
 
-find . -name '*.cpp' -or -name '*.hpp' -or -name '*.h' | xargs chmod 644
+# Remove exec permission from source files
+find . \( -name '*.cpp' -or -name '*.hpp' -or -name '*.h' \) -and -executable -exec chmod -x {} \;
+
 
 %build
 %configure --enable-ffmpeg --docdir=%{_defaultdocdir}/%{name}-%{version} \
@@ -115,10 +115,8 @@ find . -name '*.cpp' -or -name '*.hpp' -or -name '*.h' | xargs chmod 644
 %make_install
 find %{buildroot} -name "*.la" -exec rm {} \;
 
-install -dD %{buildroot}%{_datadir}/pixmaps
-
-cp %{buildroot}%{_datadir}/icons/hicolor/24x24/apps/%{name}.png \
-    %{buildroot}%{_datadir}/pixmaps
+install -Dpm0644 %{buildroot}%{_datadir}/icons/hicolor/24x24/apps/%{name}.png \
+    %{buildroot}%{_datadir}/pixmaps/%{name}.png
 
 sed -i -e "s!MP3!MP3;!" %{buildroot}%{_datadir}/applications/%{name}.desktop
 
@@ -149,13 +147,13 @@ fi
 %{_bindir}/%{name}
 %dir %{_libdir}/%{name}
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/%{name}/pixmaps/*
+%{_datadir}/%{name}
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/icons/hicolor/*/apps/*
 
 
 %files devel
-%{_includedir}/%{name}/*
+%{_includedir}/%{name}
 
 %files plugins
 %{_libdir}/%{name}/convpresets
@@ -164,6 +162,9 @@ fi
 
 
 %changelog
+* Tue Aug 16 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 0.7.2-3
+- Clean spec
+
 * Tue Jun 14 2016 Arkady L. Shane <ashejn@russianfedora.pro> - 0.7.2-2.R
 - rebuilt against new ffmpeg
 

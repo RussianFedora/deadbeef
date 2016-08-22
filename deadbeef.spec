@@ -51,19 +51,9 @@ DeaDBeeF (as in 0xDEADBEEF) is an audio player for GNU/Linux systems with X11
 (though now it also runs in plain console without X, in FreeBSD, and in
 OpenSolaris).
 
-It is mainly written by Alexey Yakovenko, with contributions from a lot of
-different people (see about box in the player for more details).
-
-It is distributed under the terms of General Public License version 2.
-
 %description -l ru
 DeaDBeeF (как в 0xDEADBEEF) это аудиопроигрыватель для систем GNU/Linux с X11
 (теперь может работать и в чистой консоли).
-
-В основном написан Алексеем Яковенко, с добавлениями от многих других людей
-(подробнее смотри в разделе О программе).
-
-Распространяется под условиями General Public License version 2.
 
 
 %package devel

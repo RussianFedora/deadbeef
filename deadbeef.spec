@@ -1,6 +1,6 @@
 Name:           deadbeef
 Version:        0.7.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        An audio player for GNU/Linux
 Summary(ru):    Музыкальный проигрыватель для GNU/Linux
 
@@ -76,8 +76,7 @@ This package contains plugins for %{name}
 
 
 %prep
-%setup -q
-%patch -p0
+%autosetup -p0
 # https://github.com/Alexey-Yakovenko/deadbeef/issues/901
 find plugins -name "[^.]*" -type f -exec \
     sed -i -e "s!Foundation, Inc., 59.*!Foundation,\ Inc.,\ 51\ Franklin Street,\ Fifth\ Floor,\ Boston,\ MA!" {} \;
@@ -117,14 +116,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %post
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-/usr/bin/update-desktop-database &> /dev/null || :
 
 %postun
 if [ $1 -eq 0 ] ; then
     /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
     /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 fi
-/usr/bin/update-desktop-database &> /dev/null || :
 
 %posttrans
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
@@ -152,6 +149,9 @@ fi
 
 
 %changelog
+* Tue Feb 07 2017 Vasiliy N. Glazov <vascom2@gmail.com> - 0.7.2-4
+- Remove unneeded scriptlet
+
 * Tue Aug 16 2016 Vasiliy N. Glazov <vascom2@gmail.com> - 0.7.2-3
 - Clean spec
 

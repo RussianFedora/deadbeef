@@ -1,6 +1,6 @@
 Name:           deadbeef
 Version:        0.7.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        An audio player for GNU/Linux
 Summary(ru):    Музыкальный проигрыватель для GNU/Linux
 
@@ -149,6 +149,9 @@ fi
 
 
 %changelog
+* Tue Feb 07 2017 Vasiliy N. Glazov <vascom2@gmail.com> - 0.7.2-5
+- Rebuild with new ffmpeg
+
 * Tue Feb 07 2017 Vasiliy N. Glazov <vascom2@gmail.com> - 0.7.2-4
 - Remove unneeded scriptlet
 

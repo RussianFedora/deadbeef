@@ -5,7 +5,7 @@ Summary:        An audio player for GNU/Linux
 Summary(ru):    Музыкальный проигрыватель для GNU/Linux
 
 Group:          Applications/Multimedia
-License:        GPLv2+
+License:        GPLv3+ and LGPLv2+ and BSD and MIT and zlib
 URL:            http://deadbeef.sourceforge.net
 Source0:        http://downloads.sourceforge.net/project/%{name}/%{name}-%{version}.tar.bz2
 Patch:          desktop.patch

@@ -43,7 +43,7 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  pkgconfig(jansson)
 
 Requires:       hicolor-icon-theme
-Requires:       %{name}-plugins = %{version}-%{release}
+Requires:       %{name}-plugins%{?_isa} = %{version}-%{release}
 
 
 %description
@@ -77,14 +77,6 @@ This package contains plugins for %{name}
 
 %prep
 %autosetup -p0
-# https://github.com/Alexey-Yakovenko/deadbeef/issues/901
-find plugins -name "[^.]*" -type f -exec \
-    sed -i -e "s!Foundation, Inc., 59.*!Foundation,\ Inc.,\ 51\ Franklin Street,\ Fifth\ Floor,\ Boston,\ MA!" {} \;
-
-sed -i -e "s!Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.!Foundation,\ Inc.,\ 51\ Franklin Street,\ Fifth\ Floor,\ Boston,\ MA!" "plugins/sid/sidplay-libs/libsidplay/src/reloc65.c"
-sed -i -e "s!Boston, MA!Boston, MA\\\n\"!" "plugins/adplug/plugin.c"
-sed -i -e "s!Boston, MA!Boston, MA\\\n\"!" "plugins/mms/mmsplug.c"
-sed -i -e "s!Boston, MA!Boston, MA\\\n\"!" "plugins/gme/cgme.c"
 
 # Remove exec permission from source files
 find . \( -name '*.cpp' -or -name '*.hpp' -or -name '*.h' \) -and -executable -exec chmod -x {} \;
@@ -114,18 +106,6 @@ sed -i -e "s!MP3!MP3;!" %{buildroot}%{_datadir}/applications/%{name}.desktop
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
-%post
-/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-
-%postun
-if [ $1 -eq 0 ] ; then
-    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
-    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-fi
-
-%posttrans
-/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-
 
 %files -f %{name}.lang
 %doc README ChangeLog AUTHORS
@@ -149,7 +129,7 @@ fi
 
 
 %changelog
-* Tue Feb 07 2017 Vasiliy N. Glazov <vascom2@gmail.com> - 0.7.2-5
+* Fri May 04 2017 Vasiliy N. Glazov <vascom2@gmail.com> - 0.7.2-5
 - Rebuild with new ffmpeg
 
 * Tue Feb 07 2017 Vasiliy N. Glazov <vascom2@gmail.com> - 0.7.2-4

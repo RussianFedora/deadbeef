@@ -5,7 +5,7 @@ Summary:        An audio player for GNU/Linux
 Summary(ru):    Музыкальный проигрыватель для GNU/Linux
 
 Group:          Applications/Multimedia
-License:        GPLv3+ and LGPLv2+ and BSD and MIT and zlib
+License:        GPLv2+ and LGPLv2+ and BSD and MIT and zlib
 URL:            http://deadbeef.sourceforge.net
 Source0:        http://downloads.sourceforge.net/project/%{name}/%{name}-%{version}.tar.bz2
 Patch:          desktop.patch
@@ -85,9 +85,9 @@ find . \( -name '*.cpp' -or -name '*.hpp' -or -name '*.h' \) -and -executable -e
 %build
 %configure --enable-ffmpeg --docdir=%{_defaultdocdir}/%{name}-%{version} \
 %if 0%{?fedora} >= 15 || 0%{?rhel} >= 7
-    --disable-gtk2 --enable-gtk3 --disable-static
+    --disable-gtk2 --enable-gtk3 --disable-static --disable-silent-rules
 %else
-    --enable-gtk2 --disable-gtk3 --disable-lfm --disable-static
+    --enable-gtk2 --disable-gtk3 --disable-lfm --disable-static --disable-silent-rules
 %endif
 %make_build
 
